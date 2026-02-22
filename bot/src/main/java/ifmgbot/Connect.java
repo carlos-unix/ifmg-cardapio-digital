@@ -1,15 +1,15 @@
 package ifmgbot;
 
 import java.io.IOException;
-import org.jsoup.nodes.Element;
-import java.io.IOException;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 public class Connect {
-    public void createConnection()
-    {
+    // function to create connection
+    public static Document createConnection() {
+        Document doc = null;
         try {
-            Element doc = Jsoup
+            doc = Jsoup
                     .connect("https://cardapio.sje.ifmg.edu.br/cardapio.php")
                     .userAgent("Mozilla/5.0")
                     .get();
@@ -18,5 +18,7 @@ public class Connect {
             System.out.println("Erro ao acessar o site:");
             e.printStackTrace();
         }
+
+        return doc;
     }
 }
