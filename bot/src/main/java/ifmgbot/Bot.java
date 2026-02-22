@@ -16,12 +16,29 @@ public class Bot extends TelegramLongPollingBot {
         SendMessage sm = SendMessage.builder().chatId(user.toString()).text(message).build();
         try {
             execute(sm); // sending the message
+        } catch (org.telegram.telegrambots.meta.exceptions.TelegramApiException e) {
+        }
+    }
+
+    public void notFoundMenu(Long user) {
+        SendMessage sm = SendMessage.builder().chatId(user.toString())
+                .text("O cardápio deste campus não existe na web. ").build();
+        try {
+            execute(sm); // sending the message
         } catch (TelegramApiException e) {
             throw new RuntimeException(e); // printing errors
         }
     }
 
-    public boolean startCommand = false;
+    public void menuNotExists(Long user) {
+        SendMessage sm = SendMessage.builder().chatId(user.toString())
+                .text("Cardápio não encontrado. ").build();
+        try {
+            execute(sm); // sending the message
+        } catch (TelegramApiException e) {
+            throw new RuntimeException(e); // printing errors
+        }
+    }
 
     @Override
     public String getBotUsername() {
@@ -65,40 +82,148 @@ public class Bot extends TelegramLongPollingBot {
                                 + "\nArcos - /arc");
                 break;
             case "/cng":
-                Document cng = Connect.createConnectionCNG();
+                botSendingMessages(id, "O cardápio deste campus é inacessível por ser lançado via API independente.");
                 break;
             case "/cnl":
-                botSendingMessages(id, "O cardápio deste campus não está disponível na web.");
+                notFoundMenu(id);
                 break;
             case "/gva":
                 Document gva = Connect.createConnectionGVA();
+
+                Element menuGva = gva.getElementById("parent-fieldname-text");
+                if (menuGva == null) {
+                    menuNotExists(id);
+                    return;
+                }
+
+                Elements itemsGva = menuGva.select("p");
+
+                if (!(itemsGva.isEmpty())) {
+                    for (Element item : itemsGva) {
+                        botSendingMessages(id, item.text());
+                    }
+                } else {
+                    botSendingMessages(id, "O cardápio ainda não foi lançado pelo serviço de Nutrição.");
+                }
                 break;
             case "/piu":
-                botSendingMessages(id, "O cardápio deste campus não está disponível na web.");
+                notFoundMenu(id);
 
                 break;
             case "/oub":
-                botSendingMessages(id, "O cardápio deste campus não está disponível na web.");
+                notFoundMenu(id);
 
                 break;
             case "/oup":
                 Document oup = Connect.createConnectionOUP();
 
-                Elements menuOup = oup.getElementsByClass("row");
-                if (menuOup == null) {
-                    System.out.println("A tabela não existe.");
+                Elements menuOup0 = oup.getElementsByClass("cell width-3 position-0 ");
+                if (menuOup0 == null) {
+                    menuNotExists(id);
                     return;
                 }
 
-                Elements itemsOup = menuOup.select("h4");
+                Elements itemsOup0 = menuOup0.select("h4");
 
-                if (!(itemsOup.isEmpty())) {
-                    for (Element item : itemsOup) {
-                        System.out.println(item.text());
-                        Elements days = menuOup.select("p");
+                if (!(itemsOup0.isEmpty())) {
+                    for (Element item : itemsOup0) {
+                        botSendingMessages(id, item.text());
+                        Elements days = menuOup0.select("p");
 
                         for (Element day : days) {
-                            System.out.println(day.text());
+                            botSendingMessages(id, day.text());
+                        }
+                    }
+
+                } else {
+                    botSendingMessages(id, "O cardápio ainda não foi lançado pelo serviço de Nutrição.");
+                }
+
+                Elements menuOup1 = oup.getElementsByClass("cell width-3 position-3 ");
+                if (menuOup1 == null) {
+                    menuNotExists(id);
+
+                    return;
+                }
+
+                Elements itemsOup1 = menuOup1.select("h4");
+
+                if (!(itemsOup1.isEmpty())) {
+                    for (Element item : itemsOup1) {
+                        botSendingMessages(id, item.text());
+                        Elements days = menuOup1.select("p");
+
+                        for (Element day : days) {
+                            botSendingMessages(id, day.text());
+                        }
+                    }
+
+                } else {
+                    botSendingMessages(id, "O cardápio ainda não foi lançado pelo serviço de Nutrição.");
+                }
+
+                Elements menuOup2 = oup.getElementsByClass("cell width-3 position-6 ");
+                if (menuOup2 == null) {
+                    menuNotExists(id);
+
+                    return;
+                }
+
+                Elements itemsOup2 = menuOup2.select("h4");
+
+                if (!(itemsOup2.isEmpty())) {
+                    for (Element item : itemsOup2) {
+                        botSendingMessages(id, item.text());
+                        Elements days = menuOup2.select("p");
+
+                        for (Element day : days) {
+                            botSendingMessages(id, day.text());
+                        }
+                    }
+
+                } else {
+                    botSendingMessages(id, "O cardápio ainda não foi lançado pelo serviço de Nutrição.");
+                }
+
+                Elements menuOup3 = oup.getElementsByClass("cell width-3 position-9 ");
+                if (menuOup3 == null) {
+                    menuNotExists(id);
+
+                    return;
+                }
+
+                Elements itemsOup3 = menuOup3.select("h4");
+
+                if (!(itemsOup3.isEmpty())) {
+                    for (Element item : itemsOup3) {
+                        botSendingMessages(id, item.text());
+                        Elements days = menuOup3.select("p");
+
+                        for (Element day : days) {
+                            botSendingMessages(id, day.text());
+                        }
+                    }
+
+                } else {
+                    botSendingMessages(id, "O cardápio ainda não foi lançado pelo serviço de Nutrição.");
+                }
+
+                Elements menuOup4 = oup.getElementsByClass("cell width-3 position-12 ");
+                if (menuOup4 == null) {
+                    menuNotExists(id);
+
+                    return;
+                }
+
+                Elements itemsOup4 = menuOup4.select("h4");
+
+                if (!(itemsOup4.isEmpty())) {
+                    for (Element item : itemsOup4) {
+                        botSendingMessages(id, item.text());
+                        Elements days = menuOup4.select("p");
+
+                        for (Element day : days) {
+                            botSendingMessages(id, day.text());
                         }
                     }
 
@@ -108,26 +233,26 @@ public class Bot extends TelegramLongPollingBot {
 
                 break;
             case "/ipa":
-                botSendingMessages(id, "O cardápio deste campus não está disponível na web.");
+                notFoundMenu(id);
 
                 break;
             case "/ita":
-                botSendingMessages(id, "O cardápio deste campus não está disponível na web.");
+                notFoundMenu(id);
 
                 break;
             case "/rib":
-                botSendingMessages(id, "O cardápio deste campus não está disponível na web.");
+                notFoundMenu(id);
 
                 break;
             case "/sab":
-                botSendingMessages(id, "O cardápio deste campus não está disponível na web.");
+                notFoundMenu(id);
 
                 break;
             case "/for":
                 Document form = Connect.createConnectionFOR();
                 Element menuForm = form.getElementById("parent-fieldname-text");
                 if (menuForm == null) {
-                    System.out.println("Cardápio não encontrado.");
+                    menuNotExists(id);
                     return;
                 }
 
@@ -135,14 +260,15 @@ public class Bot extends TelegramLongPollingBot {
 
                 if (!(itemsForm.isEmpty())) {
                     for (Element item : itemsForm) {
-                        System.out.println(item.text());
+                        botSendingMessages(id, item.text());
+
                     }
                 } else {
                     botSendingMessages(id, "O cardápio ainda não foi lançado pelo serviço de Nutrição.");
                 }
                 break;
             case "/san":
-                botSendingMessages(id, "O cardápio deste campus não está disponível na web.");
+                notFoundMenu(id);
 
                 break;
             case "/sje":
@@ -150,7 +276,7 @@ public class Bot extends TelegramLongPollingBot {
 
                 Element menuSje = sje.selectFirst("table");
                 if (menuSje == null) {
-                    System.out.println("A tabela não existe.");
+                    menuNotExists(id);
                     return;
                 }
 
@@ -158,22 +284,23 @@ public class Bot extends TelegramLongPollingBot {
 
                 if (!(itemsSje.isEmpty())) {
                     for (Element item : itemsSje) {
-                        System.out.println(item.text());
+                        botSendingMessages(id, item.text());
+
                     }
                     Elements days = menuSje.select("thead th");
                     for (Element day : days) {
-                        System.out.println(day.text());
+                        botSendingMessages(id, day.text());
                     }
                 } else {
                     botSendingMessages(id, "O cardápio ainda não foi lançado pelo serviço de Nutrição.");
                 }
                 break;
             case "/bet":
-                botSendingMessages(id, "O cardápio deste campus não está disponível na web.");
+                notFoundMenu(id);
 
                 break;
             case "/arc":
-                botSendingMessages(id, "O cardápio deste campus não está disponível na web.");
+                notFoundMenu(id);
 
                 break;
 
