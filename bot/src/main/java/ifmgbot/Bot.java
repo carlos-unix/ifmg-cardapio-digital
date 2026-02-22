@@ -20,6 +20,15 @@ public class Bot extends TelegramLongPollingBot {
         }
     }
 
+    public void notLaunchedMenu(Long user) {
+        SendMessage sm = SendMessage.builder().chatId(user.toString()).text("O cardápio não foi registrado pelo serviço de Nutrição.").build();
+        try {
+            execute(sm); // sending the message
+        } catch (TelegramApiException e) {
+            throw new RuntimeException(e); // printing errors
+        }
+    }
+
     public void notFoundMenu(Long user) {
         SendMessage sm = SendMessage.builder().chatId(user.toString())
                 .text("O cardápio deste campus não existe na web. ").build();
@@ -103,7 +112,7 @@ public class Bot extends TelegramLongPollingBot {
                         botSendingMessages(id, item.text());
                     }
                 } else {
-                    botSendingMessages(id, "O cardápio ainda não foi lançado pelo serviço de Nutrição.");
+                    notLaunchedMenu(id);
                 }
                 break;
             case "/piu":
@@ -136,7 +145,7 @@ public class Bot extends TelegramLongPollingBot {
                     }
 
                 } else {
-                    botSendingMessages(id, "O cardápio ainda não foi lançado pelo serviço de Nutrição.");
+                    notLaunchedMenu(id);
                 }
 
                 Elements menuOup1 = oup.getElementsByClass("cell width-3 position-3 ");
@@ -159,7 +168,7 @@ public class Bot extends TelegramLongPollingBot {
                     }
 
                 } else {
-                    botSendingMessages(id, "O cardápio ainda não foi lançado pelo serviço de Nutrição.");
+                    notLaunchedMenu(id);
                 }
 
                 Elements menuOup2 = oup.getElementsByClass("cell width-3 position-6 ");
@@ -182,7 +191,7 @@ public class Bot extends TelegramLongPollingBot {
                     }
 
                 } else {
-                    botSendingMessages(id, "O cardápio ainda não foi lançado pelo serviço de Nutrição.");
+                    notLaunchedMenu(id);
                 }
 
                 Elements menuOup3 = oup.getElementsByClass("cell width-3 position-9 ");
@@ -205,7 +214,7 @@ public class Bot extends TelegramLongPollingBot {
                     }
 
                 } else {
-                    botSendingMessages(id, "O cardápio ainda não foi lançado pelo serviço de Nutrição.");
+                    notLaunchedMenu(id);
                 }
 
                 Elements menuOup4 = oup.getElementsByClass("cell width-3 position-12 ");
@@ -228,7 +237,7 @@ public class Bot extends TelegramLongPollingBot {
                     }
 
                 } else {
-                    botSendingMessages(id, "O cardápio ainda não foi lançado pelo serviço de Nutrição.");
+                    notLaunchedMenu(id);
                 }
 
                 break;
@@ -264,7 +273,7 @@ public class Bot extends TelegramLongPollingBot {
 
                     }
                 } else {
-                    botSendingMessages(id, "O cardápio ainda não foi lançado pelo serviço de Nutrição.");
+                    notLaunchedMenu(id);
                 }
                 break;
             case "/san":
@@ -292,7 +301,7 @@ public class Bot extends TelegramLongPollingBot {
                         botSendingMessages(id, day.text());
                     }
                 } else {
-                    botSendingMessages(id, "O cardápio ainda não foi lançado pelo serviço de Nutrição.");
+                    notLaunchedMenu(id);
                 }
                 break;
             case "/bet":
