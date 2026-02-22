@@ -22,21 +22,21 @@ public class Connect {
         return doc;
     }
 
-    public static Document createConnectionCNG() {
-        Document doc = null;
-        try {
-            doc = Jsoup
-                    .connect("https://cardapio.meep.cloud/9876c3b3-d9a2-7cfb-db21-463876970292")
-                    .userAgent("Mozilla/5.0")
-                    .get();
+    // public static Document createConnectionCNG() {
+    //     Document doc = null;
+    //     try {
+    //         doc = Jsoup
+    //                 .connect("https://cardapio.meep.cloud/9876c3b3-d9a2-7cfb-db21-463876970292")
+    //                 .userAgent("Mozilla/5.0")
+    //                 .get();
 
-        } catch (IOException e) {
-            System.out.println("Erro ao acessar o site:");
-            e.printStackTrace();
-        }
+    //     } catch (IOException e) {
+    //         System.out.println("Erro ao acessar o site:");
+    //         e.printStackTrace();
+    //     }
 
-        return doc;
-    }
+    //     return doc;
+    // }
 
     // public static Document createConnectionCNL() {
     //     Document doc = null;
