@@ -2,14 +2,17 @@ package ifmgbot;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
-//import org.telegram.telegrambots.meta.api.methods.CopyMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-//import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class Bot extends TelegramLongPollingBot {
+
+    Document conn = Connect.createConnection();
 
     public void botSendingMessages(Long user, String message) {
         SendMessage sm = SendMessage.builder().chatId(user.toString()).text(message).build();
@@ -46,7 +49,7 @@ public class Bot extends TelegramLongPollingBot {
             case "/help":
 
                 botSendingMessages(id,
-                        "Para consultar o cardápio com o nosso bot, digite o código do campus onde você deseja consultar o cardápio: \n"
+                        "Para consultar o cardápio com o nosso bot, digite o código do campus desejado: \n"
                                 + "\nCongonhas - /cng"
                                 + "\nConselheiro Lafaiete - /cnl"
                                 + "\nGovernador Valadares - /gva"
@@ -88,6 +91,25 @@ public class Bot extends TelegramLongPollingBot {
             case "/san":
                 break;
             case "/sje":
+                Element menuTable = conn.selectFirst("table");
+                if (menuTable == null) {
+                    System.out.println("A tabela não existe.");
+                    return;
+                }
+
+                Elements items = menuTable.select("tbody td");
+
+                if (!(items.isEmpty())) {
+                    for (Element item : items) {
+                        System.out.println(item.text());
+                    }
+                    Elements days = menuTable.select("thead th");
+                    for (Element day : days) {
+                        System.out.println(day.text());
+                    }
+                } else {
+                    botSendingMessages(id, "O cardápio ainda não foi lançado pelo serviço de Nutrição.");
+                }
                 break;
             case "/bet":
                 break;
@@ -98,7 +120,6 @@ public class Bot extends TelegramLongPollingBot {
                 botSendingMessages(id, "Este comando não existe.");
                 break;
         }
-
     }
 
     public static void main(String[] args) throws TelegramApiException {
