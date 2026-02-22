@@ -36,13 +36,69 @@ public class Bot extends TelegramLongPollingBot {
         var userMessage = update.getMessage();
         var user = userMessage.getFrom();
         var id = user.getId();
-        if (userMessage.getText().equals("/start")) {
-            sendStartMessage(id, "Olá, " + user.getFirstName() + ", bem-vindo ao bot IFMG Cardápio Digital.");
-        }
-    }
+        var command = userMessage.getText();
 
-    public void sendStartMessage(Long user, String message) {
-        botSendingMessages(user, message);
+        switch (command) {
+            case "/start":
+                botSendingMessages(id, "Olá, " + user.getFirstName()
+                        + ", bem-vindo ao bot IFMG Cardápio Digital. Use /help para saber como utilizar.");
+                break;
+            case "/help":
+
+                botSendingMessages(id,
+                        "Para consultar o cardápio com o nosso bot, digite o código do campus onde você deseja consultar o cardápio: \n"
+                                + "\nCongonhas - /cng"
+                                + "\nConselheiro Lafaiete - /cnl"
+                                + "\nGovernador Valadares - /gva"
+                                + "\nPiumhi - /piu"
+                                + "\nOuro Branco - /oub"
+                                + "\nOuro Preto - /oup"
+                                + "\nIpatinga - /ipa"
+                                + "\nItabirito - /ita"
+                                + "\nRibeirão das Neves - /rib"
+                                + "\nSabará - /sab"
+                                + "\nFormiga - /for"
+                                + "\nSanta Luzia - /san"
+                                + "\nSão João Evangelista - /sje"
+                                + "\nBetim - /bet"
+                                + "\nArcos - /arc");
+                break;
+            case "/cng":
+                break;
+            case "/cnl":
+                break;
+            case "/gva":
+                break;
+            case "/piu":
+                break;
+            case "/oub":
+                break;
+            case "/oup":
+                break;
+            case "/ipa":
+                break;
+            case "/ita":
+                break;
+            case "/rib":
+                break;
+            case "/sab":
+                break;
+            case "/for":
+                break;
+            case "/san":
+                break;
+            case "/sje":
+                break;
+            case "/bet":
+                break;
+            case "/arc":
+                break;
+
+            default:
+                botSendingMessages(id, "Este comando não existe.");
+                break;
+        }
+
     }
 
     public static void main(String[] args) throws TelegramApiException {
