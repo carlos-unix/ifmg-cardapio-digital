@@ -53,3 +53,7 @@ https://core.telegram.org/bots/tutorial#getting-ready
 ## LICENSE
 
 Please refer to the LICENSE file for usage terms.
+
+## Logo
+
+![Bot logo](./assets/bot-logo.png "Bot logo")
