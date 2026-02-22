@@ -1,4 +1,4 @@
-# IFMG Cardápio Digital v1.0.0
+# IFMG Cardápio Digital v1.0.1
 
 IFMG Cardápio Digital is a Java-based Telegram bot integrated with the Telegram Bot API. It allows users to consult the daily menu of the Federal Institute of Education, Science and Technology of Minas Gerais (IFMG) campuses directly through Telegram.
 
@@ -12,14 +12,18 @@ IFMG Cardápio Digital is a Java-based Telegram bot integrated with the Telegram
 - Direct integration with official campus websites by web scraping
 - Secure bot token handling
 
-## Current Version (v1.0.0)
+## Current Version (v1.0.1)
 
 Currently supports:
 - São João Evangelista campus
+- Ouro Preto campus
+- Formiga campus
+- Governador Valadares campus
+- Fallback message for campuses without an official menu website
 
 Future versions will include:
-- Additional IFMG campuses
-- Fallback message for campuses without an official menu website
+- Error verification
+- More stylized text sent by bot 
 
 
 ## Technologies Used
