@@ -12,6 +12,8 @@ IFMG Cardápio Digital is a Java-based Telegram bot integrated with the Telegram
 - Direct integration with official campus websites by web scraping
 - Secure bot token handling
 
+**Note**: not all campi are available.
+
 ## Current Version (v1.0.1)
 
 Currently supports:
