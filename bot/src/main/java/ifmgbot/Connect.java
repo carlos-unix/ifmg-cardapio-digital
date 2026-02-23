@@ -8,12 +8,15 @@ import org.jsoup.nodes.Document;
 /* NOTA: nem todos os campus estão disponíveis para consultar o cardápio digital, por isso há apenas alguns links de conexão. */
 
 public class Connect {
+    public static String UserAgent = "Mozilla/5.0";
+
     public static Document createConnectionSJE() {
+        
         Document doc = null;
         try {
             doc = Jsoup
                     .connect("https://cardapio.sje.ifmg.edu.br/cardapio.php")
-                    .userAgent("Mozilla/5.0")
+                    .userAgent(UserAgent)
                     .get();
 
         } catch (IOException e) {
@@ -29,7 +32,7 @@ public class Connect {
         try {
             doc = Jsoup
                     .connect("https://www.ifmg.edu.br/governadorvaladares/central-de-servicos/cardapio-restaurante")
-                    .userAgent("Mozilla/5.0")
+                    .userAgent(UserAgent)
                     .get();
 
         } catch (IOException e) {
@@ -45,7 +48,7 @@ public class Connect {
         try {
             doc = Jsoup
                     .connect("https://ouropreto.ifmg.edu.br/ouropreto/central-de-servicos/cardapio-restaurante")
-                    .userAgent("Mozilla/5.0")
+                    .userAgent(UserAgent)
                     .get();
 
         } catch (IOException e) {
@@ -61,7 +64,7 @@ public class Connect {
         try {
             doc = Jsoup
                     .connect("https://plone.ifmg.edu.br/formiga/central-de-servicos/cardapio-restaurante")
-                    .userAgent("Mozilla/5.0")
+                    .userAgent(UserAgent)
                     .get();
 
         } catch (IOException e) {
