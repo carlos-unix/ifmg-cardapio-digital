@@ -265,6 +265,7 @@ public class Bot extends TelegramLongPollingBot {
 
             case "/for":
                 Document form = Connect.createConnectionFOR();
+                
                 Element menuForm = form.getElementById("parent-fieldname-text");
                 if (menuForm == null) {
                     menuNotExists(id);
