@@ -66,264 +66,270 @@ public class Bot extends TelegramLongPollingBot {
         var id = user.getId();
         var command = userMessage.getText();
 
-        switch (command) {
-            case "/start":
-                botSendingMessages(id, "Olá, " + user.getFirstName()
-                        + ", bem-vindo ao bot IFMG Cardápio Digital. Use /help para saber como utilizar.");
-                break;
+        if (userMessage.isCommand()) {
+            switch (command) {
+                case "/start":
+                    botSendingMessages(id, "Olá, " + user.getFirstName()
+                            + ", bem-vindo ao bot IFMG Cardápio Digital. Use /help para saber como utilizar.");
+                    break;
 
-            case "/help":
+                case "/help":
 
-                botSendingMessages(id,
-                        "Para consultar o cardápio com o nosso bot, digite o código do campus desejado: \n"
-                                + "\nCongonhas - /cng"
-                                + "\nConselheiro Lafaiete - /cnl"
-                                + "\nGovernador Valadares - /gva"
-                                + "\nPiumhi - /piu"
-                                + "\nOuro Branco - /oub"
-                                + "\nOuro Preto - /oup"
-                                + "\nIpatinga - /ipa"
-                                + "\nItabirito - /ita"
-                                + "\nRibeirão das Neves - /rib"
-                                + "\nSabará - /sab"
-                                + "\nFormiga - /for"
-                                + "\nSanta Luzia - /san"
-                                + "\nSão João Evangelista - /sje"
-                                + "\nBetim - /bet"
-                                + "\nArcos - /arc");
-                break;
+                    botSendingMessages(id,
+                            "Para consultar o cardápio com o nosso bot, digite o código do campus desejado: \n"
+                                    + "\nCongonhas - /cng"
+                                    + "\nConselheiro Lafaiete - /cnl"
+                                    + "\nGovernador Valadares - /gva"
+                                    + "\nPiumhi - /piu"
+                                    + "\nOuro Branco - /oub"
+                                    + "\nOuro Preto - /oup"
+                                    + "\nIpatinga - /ipa"
+                                    + "\nItabirito - /ita"
+                                    + "\nRibeirão das Neves - /rib"
+                                    + "\nSabará - /sab"
+                                    + "\nFormiga - /for"
+                                    + "\nSanta Luzia - /san"
+                                    + "\nSão João Evangelista - /sje"
+                                    + "\nBetim - /bet"
+                                    + "\nArcos - /arc");
+                    break;
 
-            case "/cng":
-                botSendingMessages(id, "O cardápio deste campus é inacessível por ser lançado via API independente.");
-                break;
+                case "/cng":
+                    botSendingMessages(id,
+                            "O cardápio deste campus é inacessível por ser lançado via API independente.");
+                    break;
 
-            case "/cnl":
-                notFoundMenu(id);
-                break;
+                case "/cnl":
+                    notFoundMenu(id);
+                    break;
 
-            case "/gva":
-                Document gva = Connect.createConnectionGVA();
+                case "/gva":
+                    Document gva = Connect.createConnectionGVA();
 
-                Element menuGva = gva.getElementById("parent-fieldname-text");
-                if (menuGva == null) {
-                    menuNotExists(id);
-                    return;
-                }
-
-                Elements itemsGva = menuGva.select("p");
-
-                if (!(itemsGva.isEmpty())) {
-                    for (Element item : itemsGva) {
-                        botSendingMessages(id, item.text());
+                    Element menuGva = gva.getElementById("parent-fieldname-text");
+                    if (menuGva == null) {
+                        menuNotExists(id);
+                        return;
                     }
-                } else {
-                    notLaunchedMenu(id);
-                }
-                break;
 
-            case "/piu":
-                notFoundMenu(id);
-                break;
+                    Elements itemsGva = menuGva.select("p");
 
-            case "/oub":
-                notFoundMenu(id);
-                break;
+                    if (!(itemsGva.isEmpty())) {
+                        for (Element item : itemsGva) {
+                            botSendingMessages(id, item.text());
+                        }
+                    } else {
+                        notLaunchedMenu(id);
+                    }
+                    break;
 
-            case "/oup":
-                Document oup = Connect.createConnectionOUP();
+                case "/piu":
+                    notFoundMenu(id);
+                    break;
 
-                Elements menuOup0 = oup.getElementsByClass("cell width-3 position-0 ");
-                if (menuOup0 == null) {
-                    menuNotExists(id);
-                    return;
-                }
+                case "/oub":
+                    notFoundMenu(id);
+                    break;
 
-                Elements itemsOup0 = menuOup0.select("h4");
+                case "/oup":
+                    Document oup = Connect.createConnectionOUP();
 
-                if (!(itemsOup0.isEmpty())) {
-                    for (Element item : itemsOup0) {
-                        botSendingMessages(id, item.text());
-                        Elements days = menuOup0.select("p");
+                    Elements menuOup0 = oup.getElementsByClass("cell width-3 position-0 ");
+                    if (menuOup0 == null) {
+                        menuNotExists(id);
+                        return;
+                    }
 
+                    Elements itemsOup0 = menuOup0.select("h4");
+
+                    if (!(itemsOup0.isEmpty())) {
+                        for (Element item : itemsOup0) {
+                            botSendingMessages(id, item.text());
+                            Elements days = menuOup0.select("p");
+
+                            for (Element day : days) {
+                                botSendingMessages(id, day.text());
+                            }
+                        }
+
+                    } else {
+                        notLaunchedMenu(id);
+                    }
+
+                    Elements menuOup1 = oup.getElementsByClass("cell width-3 position-3 ");
+                    if (menuOup1 == null) {
+                        menuNotExists(id);
+
+                        return;
+                    }
+
+                    Elements itemsOup1 = menuOup1.select("h4");
+
+                    if (!(itemsOup1.isEmpty())) {
+                        for (Element item : itemsOup1) {
+                            botSendingMessages(id, item.text());
+                            Elements days = menuOup1.select("p");
+
+                            for (Element day : days) {
+                                botSendingMessages(id, day.text());
+                            }
+                        }
+
+                    } else {
+                        notLaunchedMenu(id);
+                    }
+
+                    Elements menuOup2 = oup.getElementsByClass("cell width-3 position-6 ");
+                    if (menuOup2 == null) {
+                        menuNotExists(id);
+
+                        return;
+                    }
+
+                    Elements itemsOup2 = menuOup2.select("h4");
+
+                    if (!(itemsOup2.isEmpty())) {
+                        for (Element item : itemsOup2) {
+                            botSendingMessages(id, item.text());
+                            Elements days = menuOup2.select("p");
+
+                            for (Element day : days) {
+                                botSendingMessages(id, day.text());
+                            }
+                        }
+
+                    } else {
+                        notLaunchedMenu(id);
+                    }
+
+                    Elements menuOup3 = oup.getElementsByClass("cell width-3 position-9 ");
+                    if (menuOup3 == null) {
+                        menuNotExists(id);
+
+                        return;
+                    }
+
+                    Elements itemsOup3 = menuOup3.select("h4");
+
+                    if (!(itemsOup3.isEmpty())) {
+                        for (Element item : itemsOup3) {
+                            botSendingMessages(id, item.text());
+                            Elements days = menuOup3.select("p");
+
+                            for (Element day : days) {
+                                botSendingMessages(id, day.text());
+                            }
+                        }
+
+                    } else {
+                        notLaunchedMenu(id);
+                    }
+
+                    Elements menuOup4 = oup.getElementsByClass("cell width-3 position-12 ");
+                    if (menuOup4 == null) {
+                        menuNotExists(id);
+
+                        return;
+                    }
+
+                    Elements itemsOup4 = menuOup4.select("h4");
+
+                    if (!(itemsOup4.isEmpty())) {
+                        for (Element item : itemsOup4) {
+                            botSendingMessages(id, item.text());
+                            Elements days = menuOup4.select("p");
+
+                            for (Element day : days) {
+                                botSendingMessages(id, day.text());
+                            }
+                        }
+
+                    } else {
+                        notLaunchedMenu(id);
+                    }
+                    break;
+
+                case "/ipa":
+                    notFoundMenu(id);
+                    break;
+
+                case "/ita":
+                    notFoundMenu(id);
+                    break;
+
+                case "/rib":
+                    notFoundMenu(id);
+                    break;
+
+                case "/sab":
+                    notFoundMenu(id);
+                    break;
+
+                case "/for":
+                    Document form = Connect.createConnectionFOR();
+
+                    Element menuForm = form.getElementById("parent-fieldname-text");
+                    if (menuForm == null) {
+                        menuNotExists(id);
+                        return;
+                    }
+
+                    Elements itemsForm = menuForm.select("p");
+
+                    if (!(itemsForm.isEmpty())) {
+                        for (Element item : itemsForm) {
+                            botSendingMessages(id, item.text());
+
+                        }
+                    } else {
+                        notLaunchedMenu(id);
+                    }
+                    break;
+
+                case "/san":
+                    notFoundMenu(id);
+                    break;
+
+                case "/sje":
+                    Document sje = Connect.createConnectionSJE();
+
+                    Element menuSje = sje.selectFirst("table");
+                    if (menuSje == null) {
+                        menuNotExists(id);
+                        return;
+                    }
+
+                    Elements itemsSje = menuSje.select("tbody td");
+
+                    if (!(itemsSje.isEmpty())) {
+                        for (Element item : itemsSje) {
+                            botSendingMessages(id, item.text());
+
+                        }
+                        Elements days = menuSje.select("thead th");
                         for (Element day : days) {
                             botSendingMessages(id, day.text());
                         }
+                    } else {
+                        notLaunchedMenu(id);
                     }
+                    break;
 
-                } else {
-                    notLaunchedMenu(id);
-                }
+                case "/bet":
+                    notFoundMenu(id);
+                    break;
 
-                Elements menuOup1 = oup.getElementsByClass("cell width-3 position-3 ");
-                if (menuOup1 == null) {
-                    menuNotExists(id);
+                case "/arc":
+                    notFoundMenu(id);
+                    break;
 
-                    return;
-                }
-
-                Elements itemsOup1 = menuOup1.select("h4");
-
-                if (!(itemsOup1.isEmpty())) {
-                    for (Element item : itemsOup1) {
-                        botSendingMessages(id, item.text());
-                        Elements days = menuOup1.select("p");
-
-                        for (Element day : days) {
-                            botSendingMessages(id, day.text());
-                        }
-                    }
-
-                } else {
-                    notLaunchedMenu(id);
-                }
-
-                Elements menuOup2 = oup.getElementsByClass("cell width-3 position-6 ");
-                if (menuOup2 == null) {
-                    menuNotExists(id);
-
-                    return;
-                }
-
-                Elements itemsOup2 = menuOup2.select("h4");
-
-                if (!(itemsOup2.isEmpty())) {
-                    for (Element item : itemsOup2) {
-                        botSendingMessages(id, item.text());
-                        Elements days = menuOup2.select("p");
-
-                        for (Element day : days) {
-                            botSendingMessages(id, day.text());
-                        }
-                    }
-
-                } else {
-                    notLaunchedMenu(id);
-                }
-
-                Elements menuOup3 = oup.getElementsByClass("cell width-3 position-9 ");
-                if (menuOup3 == null) {
-                    menuNotExists(id);
-
-                    return;
-                }
-
-                Elements itemsOup3 = menuOup3.select("h4");
-
-                if (!(itemsOup3.isEmpty())) {
-                    for (Element item : itemsOup3) {
-                        botSendingMessages(id, item.text());
-                        Elements days = menuOup3.select("p");
-
-                        for (Element day : days) {
-                            botSendingMessages(id, day.text());
-                        }
-                    }
-
-                } else {
-                    notLaunchedMenu(id);
-                }
-
-                Elements menuOup4 = oup.getElementsByClass("cell width-3 position-12 ");
-                if (menuOup4 == null) {
-                    menuNotExists(id);
-
-                    return;
-                }
-
-                Elements itemsOup4 = menuOup4.select("h4");
-
-                if (!(itemsOup4.isEmpty())) {
-                    for (Element item : itemsOup4) {
-                        botSendingMessages(id, item.text());
-                        Elements days = menuOup4.select("p");
-
-                        for (Element day : days) {
-                            botSendingMessages(id, day.text());
-                        }
-                    }
-
-                } else {
-                    notLaunchedMenu(id);
-                }
-                break;
-
-            case "/ipa":
-                notFoundMenu(id);
-                break;
-
-            case "/ita":
-                notFoundMenu(id);
-                break;
-
-            case "/rib":
-                notFoundMenu(id);
-                break;
-
-            case "/sab":
-                notFoundMenu(id);
-                break;
-
-            case "/for":
-                Document form = Connect.createConnectionFOR();
-                
-                Element menuForm = form.getElementById("parent-fieldname-text");
-                if (menuForm == null) {
-                    menuNotExists(id);
-                    return;
-                }
-
-                Elements itemsForm = menuForm.select("p");
-
-                if (!(itemsForm.isEmpty())) {
-                    for (Element item : itemsForm) {
-                        botSendingMessages(id, item.text());
-
-                    }
-                } else {
-                    notLaunchedMenu(id);
-                }
-                break;
-
-            case "/san":
-                notFoundMenu(id);
-                break;
-
-            case "/sje":
-                Document sje = Connect.createConnectionSJE();
-
-                Element menuSje = sje.selectFirst("table");
-                if (menuSje == null) {
-                    menuNotExists(id);
-                    return;
-                }
-
-                Elements itemsSje = menuSje.select("tbody td");
-
-                if (!(itemsSje.isEmpty())) {
-                    for (Element item : itemsSje) {
-                        botSendingMessages(id, item.text());
-
-                    }
-                    Elements days = menuSje.select("thead th");
-                    for (Element day : days) {
-                        botSendingMessages(id, day.text());
-                    }
-                } else {
-                    notLaunchedMenu(id);
-                }
-                break;
-
-            case "/bet":
-                notFoundMenu(id);
-                break;
-
-            case "/arc":
-                notFoundMenu(id);
-                break;
-
-            default:
-                botSendingMessages(id, "Este comando não existe.");
-                break;
+                default:
+                    botSendingMessages(id, "Este comando não existe.");
+                    break;
+            }
+        } else {
+            botSendingMessages(id, "No momento não posso conversar por mensagens, apenas por comandos.");
+            return;
         }
     }
 
