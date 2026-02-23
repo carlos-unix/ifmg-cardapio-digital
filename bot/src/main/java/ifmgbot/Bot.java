@@ -15,17 +15,18 @@ public class Bot extends TelegramLongPollingBot {
     public void botSendingMessages(Long user, String message) {
         SendMessage sm = SendMessage.builder().chatId(user.toString()).text(message).build();
         try {
-            execute(sm); // sending the message
+            execute(sm);
         } catch (org.telegram.telegrambots.meta.exceptions.TelegramApiException e) {
         }
     }
 
     public void notLaunchedMenu(Long user) {
-        SendMessage sm = SendMessage.builder().chatId(user.toString()).text("O cardápio não foi registrado pelo serviço de Nutrição.").build();
+        SendMessage sm = SendMessage.builder().chatId(user.toString())
+                .text("O cardápio não foi registrado pelo serviço de Nutrição.").build();
         try {
-            execute(sm); // sending the message
+            execute(sm);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e); // printing errors
+            throw new RuntimeException(e);
         }
     }
 
@@ -33,9 +34,9 @@ public class Bot extends TelegramLongPollingBot {
         SendMessage sm = SendMessage.builder().chatId(user.toString())
                 .text("O cardápio deste campus não existe na web. ").build();
         try {
-            execute(sm); // sending the message
+            execute(sm);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e); // printing errors
+            throw new RuntimeException(e);
         }
     }
 
@@ -43,9 +44,9 @@ public class Bot extends TelegramLongPollingBot {
         SendMessage sm = SendMessage.builder().chatId(user.toString())
                 .text("Cardápio não encontrado. ").build();
         try {
-            execute(sm); // sending the message
+            execute(sm);
         } catch (TelegramApiException e) {
-            throw new RuntimeException(e); // printing errors
+            throw new RuntimeException(e);
         }
     }
 
@@ -70,6 +71,7 @@ public class Bot extends TelegramLongPollingBot {
                 botSendingMessages(id, "Olá, " + user.getFirstName()
                         + ", bem-vindo ao bot IFMG Cardápio Digital. Use /help para saber como utilizar.");
                 break;
+
             case "/help":
 
                 botSendingMessages(id,
@@ -90,12 +92,15 @@ public class Bot extends TelegramLongPollingBot {
                                 + "\nBetim - /bet"
                                 + "\nArcos - /arc");
                 break;
+
             case "/cng":
                 botSendingMessages(id, "O cardápio deste campus é inacessível por ser lançado via API independente.");
                 break;
+
             case "/cnl":
                 notFoundMenu(id);
                 break;
+
             case "/gva":
                 Document gva = Connect.createConnectionGVA();
 
@@ -115,14 +120,15 @@ public class Bot extends TelegramLongPollingBot {
                     notLaunchedMenu(id);
                 }
                 break;
+
             case "/piu":
                 notFoundMenu(id);
-
                 break;
+
             case "/oub":
                 notFoundMenu(id);
-
                 break;
+
             case "/oup":
                 Document oup = Connect.createConnectionOUP();
 
@@ -239,24 +245,24 @@ public class Bot extends TelegramLongPollingBot {
                 } else {
                     notLaunchedMenu(id);
                 }
-
                 break;
+
             case "/ipa":
                 notFoundMenu(id);
-
                 break;
+
             case "/ita":
                 notFoundMenu(id);
-
                 break;
+
             case "/rib":
                 notFoundMenu(id);
-
                 break;
+
             case "/sab":
                 notFoundMenu(id);
-
                 break;
+
             case "/for":
                 Document form = Connect.createConnectionFOR();
                 Element menuForm = form.getElementById("parent-fieldname-text");
@@ -276,10 +282,11 @@ public class Bot extends TelegramLongPollingBot {
                     notLaunchedMenu(id);
                 }
                 break;
+
             case "/san":
                 notFoundMenu(id);
-
                 break;
+
             case "/sje":
                 Document sje = Connect.createConnectionSJE();
 
@@ -304,13 +311,13 @@ public class Bot extends TelegramLongPollingBot {
                     notLaunchedMenu(id);
                 }
                 break;
+
             case "/bet":
                 notFoundMenu(id);
-
                 break;
+
             case "/arc":
                 notFoundMenu(id);
-
                 break;
 
             default:
@@ -323,5 +330,4 @@ public class Bot extends TelegramLongPollingBot {
         TelegramBotsApi botsApi = new TelegramBotsApi(DefaultBotSession.class);
         botsApi.registerBot(new Bot());
     }
-
 }
