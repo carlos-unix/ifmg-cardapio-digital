@@ -17,7 +17,6 @@ public class Connect {
                     .get();
 
         } catch (IOException e) {
-            System.out.println("Erro ao acessar o site:");
             e.printStackTrace();
         }
 
