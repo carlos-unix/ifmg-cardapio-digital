@@ -24,10 +24,6 @@ public class Bot extends TelegramLongPollingBot {
         botSendingMessages(user, "O cardápio não foi registrado pelo serviço de Nutrição.");
     }
 
-    public void notFoundMenu(Long user) {
-        botSendingMessages(user, "O cardápio deste campus não existe na web. ");
-    }
-
     public void menuNotExists(Long user) {
         botSendingMessages(user, "Cardápio não encontrado.");
     }
@@ -56,38 +52,16 @@ public class Bot extends TelegramLongPollingBot {
                     break;
 
                 case "/help":
-
                     botSendingMessages(id,
                             "Para consultar o cardápio com o nosso bot, digite o código do campus desejado: \n"
-                                    + "\nCongonhas - /cng"
-                                    + "\nConselheiro Lafaiete - /cnl"
                                     + "\nGovernador Valadares - /gva"
-                                    + "\nPiumhi - /piu"
-                                    + "\nOuro Branco - /oub"
                                     + "\nOuro Preto - /oup"
-                                    + "\nIpatinga - /ipa"
-                                    + "\nItabirito - /ita"
-                                    + "\nRibeirão das Neves - /rib"
-                                    + "\nSabará - /sab"
                                     + "\nFormiga - /for"
-                                    + "\nSanta Luzia - /san"
-                                    + "\nSão João Evangelista - /sje"
-                                    + "\nBetim - /bet"
-                                    + "\nArcos - /arc");
-                    break;
-
-                case "/cng":
-                    botSendingMessages(id,
-                            "O cardápio deste campus é inacessível por ser lançado via API independente.");
-                    break;
-
-                case "/cnl":
-                    notFoundMenu(id);
+                                    + "\nSão João Evangelista - /sje");
                     break;
 
                 case "/gva":
-                    Document gva = Connect.createConnection(
-                            "https://www.ifmg.edu.br/governadorvaladares/central-de-servicos/cardapio-restaurante");
+                    Document gva = Connect.createConnection("https://www.ifmg.edu.br/governadorvaladares/central-de-servicos/cardapio-restaurante");
 
                     Element menuGva = gva.getElementById("parent-fieldname-text");
                     if (menuGva == null) {
@@ -106,17 +80,8 @@ public class Bot extends TelegramLongPollingBot {
                     }
                     break;
 
-                case "/piu":
-                    notFoundMenu(id);
-                    break;
-
-                case "/oub":
-                    notFoundMenu(id);
-                    break;
-
                 case "/oup":
-                    Document oup = Connect.createConnection(
-                            "https://ouropreto.ifmg.edu.br/ouropreto/central-de-servicos/cardapio-restaurante");
+                    Document oup = Connect.createConnection("https://ouropreto.ifmg.edu.br/ouropreto/central-de-servicos/cardapio-restaurante");
 
                     Elements menuOup0 = oup.getElementsByClass("cell width-3 position-0 ");
                     if (menuOup0 == null) {
@@ -233,25 +198,8 @@ public class Bot extends TelegramLongPollingBot {
                     }
                     break;
 
-                case "/ipa":
-                    notFoundMenu(id);
-                    break;
-
-                case "/ita":
-                    notFoundMenu(id);
-                    break;
-
-                case "/rib":
-                    notFoundMenu(id);
-                    break;
-
-                case "/sab":
-                    notFoundMenu(id);
-                    break;
-
                 case "/for":
-                    Document form = Connect.createConnection(
-                            "https://plone.ifmg.edu.br/formiga/central-de-servicos/cardapio-restaurante");
+                    Document form = Connect.createConnection("https://plone.ifmg.edu.br/formiga/central-de-servicos/cardapio-restaurante");
 
                     Element menuForm = form.getElementById("parent-fieldname-text");
                     if (menuForm == null) {
@@ -269,10 +217,6 @@ public class Bot extends TelegramLongPollingBot {
                     } else {
                         notLaunchedMenu(id);
                     }
-                    break;
-
-                case "/san":
-                    notFoundMenu(id);
                     break;
 
                 case "/sje":
@@ -298,14 +242,6 @@ public class Bot extends TelegramLongPollingBot {
                     } else {
                         notLaunchedMenu(id);
                     }
-                    break;
-
-                case "/bet":
-                    notFoundMenu(id);
-                    break;
-
-                case "/arc":
-                    notFoundMenu(id);
                     break;
 
                 default:
