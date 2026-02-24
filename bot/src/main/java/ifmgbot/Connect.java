@@ -9,10 +9,9 @@ import org.jsoup.nodes.Document;
 
 public class Connect {
     public static String UserAgent = "Mozilla/5.0";
+    public static Document doc = null;
 
     public static Document createConnectionSJE() {
-        
-        Document doc = null;
         try {
             doc = Jsoup
                     .connect("https://cardapio.sje.ifmg.edu.br/cardapio.php")
@@ -28,7 +27,6 @@ public class Connect {
     }
 
     public static Document createConnectionGVA() {
-        Document doc = null;
         try {
             doc = Jsoup
                     .connect("https://www.ifmg.edu.br/governadorvaladares/central-de-servicos/cardapio-restaurante")
@@ -44,7 +42,6 @@ public class Connect {
     }
 
     public static Document createConnectionOUP() {
-        Document doc = null;
         try {
             doc = Jsoup
                     .connect("https://ouropreto.ifmg.edu.br/ouropreto/central-de-servicos/cardapio-restaurante")
@@ -60,7 +57,6 @@ public class Connect {
     }
 
     public static Document createConnectionFOR() {
-        Document doc = null;
         try {
             doc = Jsoup
                     .connect("https://plone.ifmg.edu.br/formiga/central-de-servicos/cardapio-restaurante")
