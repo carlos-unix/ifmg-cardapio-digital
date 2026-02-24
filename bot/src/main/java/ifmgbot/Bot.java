@@ -21,33 +21,15 @@ public class Bot extends TelegramLongPollingBot {
     }
 
     public void notLaunchedMenu(Long user) {
-        SendMessage sm = SendMessage.builder().chatId(user.toString())
-                .text("O cardápio não foi registrado pelo serviço de Nutrição.").build();
-        try {
-            execute(sm);
-        } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
-        }
+        botSendingMessages(user, "O cardápio não foi registrado pelo serviço de Nutrição.");
     }
 
     public void notFoundMenu(Long user) {
-        SendMessage sm = SendMessage.builder().chatId(user.toString())
-                .text("O cardápio deste campus não existe na web. ").build();
-        try {
-            execute(sm);
-        } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
-        }
+        botSendingMessages(user, "O cardápio deste campus não existe na web.");
     }
 
     public void menuNotExists(Long user) {
-        SendMessage sm = SendMessage.builder().chatId(user.toString())
-                .text("Cardápio não encontrado. ").build();
-        try {
-            execute(sm);
-        } catch (TelegramApiException e) {
-            throw new RuntimeException(e);
-        }
+        botSendingMessages(user, "Cardápio não encontrado.");
     }
 
     @Override
