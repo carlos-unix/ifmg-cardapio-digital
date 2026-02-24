@@ -25,7 +25,7 @@ public class Bot extends TelegramLongPollingBot {
     }
 
     public void notFoundMenu(Long user) {
-        botSendingMessages(user, "O cardápio deste campus não existe na web.");
+        botSendingMessages(user, "O cardápio deste campus não existe na web. ");
     }
 
     public void menuNotExists(Long user) {
@@ -86,7 +86,8 @@ public class Bot extends TelegramLongPollingBot {
                     break;
 
                 case "/gva":
-                    Document gva = Connect.createConnectionGVA();
+                    Document gva = Connect.createConnection(
+                            "https://www.ifmg.edu.br/governadorvaladares/central-de-servicos/cardapio-restaurante");
 
                     Element menuGva = gva.getElementById("parent-fieldname-text");
                     if (menuGva == null) {
@@ -114,7 +115,8 @@ public class Bot extends TelegramLongPollingBot {
                     break;
 
                 case "/oup":
-                    Document oup = Connect.createConnectionOUP();
+                    Document oup = Connect.createConnection(
+                            "https://ouropreto.ifmg.edu.br/ouropreto/central-de-servicos/cardapio-restaurante");
 
                     Elements menuOup0 = oup.getElementsByClass("cell width-3 position-0 ");
                     if (menuOup0 == null) {
@@ -248,7 +250,8 @@ public class Bot extends TelegramLongPollingBot {
                     break;
 
                 case "/for":
-                    Document form = Connect.createConnectionFOR();
+                    Document form = Connect.createConnection(
+                            "https://plone.ifmg.edu.br/formiga/central-de-servicos/cardapio-restaurante");
 
                     Element menuForm = form.getElementById("parent-fieldname-text");
                     if (menuForm == null) {
@@ -273,7 +276,7 @@ public class Bot extends TelegramLongPollingBot {
                     break;
 
                 case "/sje":
-                    Document sje = Connect.createConnectionSJE();
+                    Document sje = Connect.createConnection("https://cardapio.sje.ifmg.edu.br/cardapio.php");
 
                     Element menuSje = sje.selectFirst("table");
                     if (menuSje == null) {
